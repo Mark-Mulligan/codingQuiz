@@ -194,14 +194,11 @@ function quizOver() {
     initialsInput.setAttribute('for', 'initialsInput');
     inputLabel.innerText = 'Enter Initials';
 
-    //let link = document.createElement('a');
-    //link.setAttribute('href', 'highscores.html');
     let submitScoreBtn = document.createElement('button');
     submitScoreBtn.innerText = 'Submit Score';
     submitScoreBtn.classList.add('btn', 'btn-secondary', 'mt-2');
     submitScoreBtn.setAttribute('type', 'submit');
-    submitScoreBtn.setAttribute('onclick', './highscores.html');
-    //link.appendChild(submitScoreBtn);
+    
     highScoreInputDiv.appendChild(inputLabel);
     highScoreInputDiv.appendChild(initialsInput);
     highScoreInputDiv.appendChild(submitScoreBtn);
