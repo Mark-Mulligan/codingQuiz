@@ -31,7 +31,6 @@ let quizQuestions = [{
 ];
 
 let highscores = [];
-
 //Sets highscores if they are in memory
 if (localStorage.getItem('highscoreList')) {
     highscores = JSON.parse(localStorage.getItem('highscoreList'));
@@ -79,33 +78,25 @@ function randomizeQuestions(array) {
 }
 
 function createTimerElement() {
-    let timerContainer = document.createElement('div');
-    timerContainer.classList.add('timer-container');
-    let timerDisplay = document.createElement('p');
-    timerDisplay.innerText = 'Time: ';
-    let timerInner = document.createElement('span');
-    timerInner.innerText = '50';
+    let timerContainer = makeElementAddClass('div', 'timer-container');
+    let timerDisplay = makeElementAddTextAndClass('p', 'Time: ', 'timer-display');
+    let timerInner = makeElementAddTextAndClass('span', '50', 'timer-inner');
     timerInner.setAttribute('id', 'timer-display');
-   
+
     timerDisplay.appendChild(timerInner);
     timerContainer.appendChild(timerDisplay);
     questionContainer.appendChild(timerContainer);
 }
 
 function generateQuestion() {
-    let question = document.createElement('p');
-    question.classList.add('question');
+    let question = makeElementAddClass('p', 'question');
     questionContainer.appendChild(question);
-
     let divider = document.createElement('hr');
     questionContainer.appendChild(divider);
-
-    let answers = document.createElement('div');
-    answers.classList.add('answers-container');
+    let answers = makeElementAddClass('div', 'answers-container');
 
     for (let i = 0; i < 4; i++) {
-        let answer = document.createElement('div');
-        answer.classList.add('answer');
+        let answer = makeElementAddClass('div', 'answer');
         answer.addEventListener('click', handleAnswerClick);
         answers.appendChild(answer);
     }
@@ -114,7 +105,7 @@ function generateQuestion() {
     showAnswers();
 }
 
-function generateAnswerResult () {
+function generateAnswerResult() {
     let answerResultContainer = makeElementAddClass('div', 'hidden');
     answerResultContainer.setAttribute('id', 'answer-result-container');
     let seperator = document.createElement('hr');
@@ -124,7 +115,7 @@ function generateAnswerResult () {
     questionContainer.appendChild(answerResultContainer);
 }
 
-function showAnswerResult (result) {
+function showAnswerResult(result) {
     let answerResultContainerEl = document.getElementById('answer-result-container');
     let answerResultText = document.querySelector('.answer-result-text');
     answerResultText.innerText = result;
@@ -165,21 +156,8 @@ function handleAnswerClick(e) {
         showQuestion();
         showAnswers();
     } else {
-        console.log('quiz over');
         endQuiz = true;
     }
-}
-
-function makeElementAddClass (type, classes) {
-    let newElement = document.createElement(type);
-    newElement.classList.add(classes);
-    return newElement;
-}
-
-function makeElementAddTextAndClass (type, text, classes) {
-    let newElement = makeElementAddClass(type, classes);
-    newElement.innerText = text;
-    return newElement;
 }
 
 function quizOver() {
@@ -205,7 +183,7 @@ function quizOver() {
     submitScoreBtn.innerText = 'Submit Score';
     submitScoreBtn.classList.add('btn', 'btn-secondary', 'mt-2');
     submitScoreBtn.setAttribute('type', 'submit');
-    
+
     highScoreInputDiv.appendChild(inputLabel);
     highScoreInputDiv.appendChild(initialsInput);
     highScoreInputDiv.appendChild(submitScoreBtn);
@@ -214,7 +192,7 @@ function quizOver() {
     quizResultContainer.appendChild(quizScoreText);
     quizResultContainer.appendChild(highScoreInputDiv);
 
-    questionContainer.insertBefore(quizResultContainer, questionContainer.firstChild); 
+    questionContainer.insertBefore(quizResultContainer, questionContainer.firstChild);
 
     submitScoreBtn.addEventListener('click', (e) => {
         event.preventDefault();
@@ -231,7 +209,18 @@ function quizOver() {
         window.location = 'highscores.html';
     })
 }
-//someParentObject.insertBefore(someChildObject,someParentObject.firstChild)
+
+function makeElementAddClass(type, classes) {
+    let newElement = document.createElement(type);
+    newElement.classList.add(classes);
+    return newElement;
+}
+
+function makeElementAddTextAndClass(type, text, classes) {
+    let newElement = makeElementAddClass(type, classes);
+    newElement.innerText = text;
+    return newElement;
+}
 
 function hideElement(target) {
     let element = document.querySelector(target);
