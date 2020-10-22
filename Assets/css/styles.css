@@ -1,0 +1,60 @@
+body {
+    padding-top: 50px;
+    height: 100vh;
+    text-align: center;
+}
+
+button {
+    margin: 5px;
+}
+
+#high-scores-link {
+    color: black;
+    display: block;
+}
+
+.question-container {
+    min-height: 500px;
+    border: solid;
+    padding: 25px 50px;
+    text-align: left;
+    max-width: 600px;
+    position: relative;
+}
+
+.timer-container {
+    position: fixed;
+    right: 10px;
+    top: 5px;
+    font-size: 30px;
+}
+
+.question {
+    font-size: 28px;
+}
+
+.answer {
+    padding: 5px;
+    font-size: 18px;
+}
+
+.answer:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+
+.answer-result-text {
+    font-size: 20px;
+    text-align: center;
+}
+
+.quiz-result-container {
+    border: solid 1px;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.hidden {
+    display: none;
+}
