@@ -32,10 +32,9 @@ let quizQuestions = [{
 
 let highscores = [];
 
+//Sets highscores if they are in memory
 if (localStorage.getItem('highscoreList')) {
-    console.log('highscores in memory');
     highscores = JSON.parse(localStorage.getItem('highscoreList'));
-    console.log(highscores);
 }
 
 let startBtn = document.getElementById('start-btn');
@@ -46,10 +45,10 @@ questionContainer.classList.add('container', 'question-container');
 
 startBtn.addEventListener('click', () => {
     randomizeQuestions(questionOrder);
-    console.log(questionOrder);
     titleContainer.classList.add('hidden');
     document.body.appendChild(questionWrapper);
     questionWrapper.appendChild(questionContainer);
+
     createTimerElement();
     generateQuestion();
     generateAnswerResult();
@@ -68,19 +67,6 @@ startBtn.addEventListener('click', () => {
     }, 1000)
 })
 
-function createTimerElement() {
-    let timerContainer = document.createElement('div');
-    timerContainer.classList.add('timer-container');
-    let timerDisplay = document.createElement('p');
-    let timerInner = document.createElement('span');
-    timerDisplay.innerText = 'Time: ';
-    timerInner.innerText = '50';
-    timerDisplay.appendChild(timerInner);
-    timerInner.setAttribute('id', 'timer-display');
-    timerContainer.appendChild(timerDisplay);
-    questionContainer.appendChild(timerContainer);
-}
-
 function randomizeQuestions(array) {
     let index = 0;
     let newArr = [];
@@ -90,6 +76,20 @@ function randomizeQuestions(array) {
         newArr.push(array.splice(index, 1));
     }
     questionOrder = newArr.flat();
+}
+
+function createTimerElement() {
+    let timerContainer = document.createElement('div');
+    timerContainer.classList.add('timer-container');
+    let timerDisplay = document.createElement('p');
+    timerDisplay.innerText = 'Time: ';
+    let timerInner = document.createElement('span');
+    timerInner.innerText = '50';
+    timerInner.setAttribute('id', 'timer-display');
+   
+    timerDisplay.appendChild(timerInner);
+    timerContainer.appendChild(timerDisplay);
+    questionContainer.appendChild(timerContainer);
 }
 
 function generateQuestion() {
@@ -115,14 +115,11 @@ function generateQuestion() {
 }
 
 function generateAnswerResult () {
-    let answerResultContainer = document.createElement('div');
+    let answerResultContainer = makeElementAddClass('div', 'hidden');
     answerResultContainer.setAttribute('id', 'answer-result-container');
-    answerResultContainer.classList.add('hidden');
     let seperator = document.createElement('hr');
     answerResultContainer.appendChild(seperator);
-    let answerResult = document.createElement('p');
-    answerResult.classList.add('answer-result-text');
-    answerResult.innerText = 'Correct';
+    let answerResult = makeElementAddTextAndClass('p', 'Correct', 'answer-result-text');
     answerResultContainer.appendChild(answerResult);
     questionContainer.appendChild(answerResultContainer);
 }
@@ -173,25 +170,29 @@ function handleAnswerClick(e) {
     }
 }
 
+function makeElementAddClass (type, classes) {
+    let newElement = document.createElement(type);
+    newElement.classList.add(classes);
+    return newElement;
+}
+
+function makeElementAddTextAndClass (type, text, classes) {
+    let newElement = makeElementAddClass(type, classes);
+    newElement.innerText = text;
+    return newElement;
+}
+
 function quizOver() {
     hideElement('.question');
     hideElement('.answers-container');
     hideElement('hr');
 
-    let quizResultContainer = document.createElement('form');
-    quizResultContainer.classList.add('quiz-result-container');
+    let quizResultContainer = makeElementAddClass('form', 'quiz-result-container');
     quizResultContainer.setAttribute('method', 'POST');
-    //quizResultContainer.setAttribute('action', 'highscores.html');
+    let quizOverText = makeElementAddTextAndClass('h3', 'Quiz Over!', 'result-text');
+    let quizScoreText = makeElementAddTextAndClass('h3', `Score: ${totalSeconds}`, 'result-text');
+    let highScoreInputDiv = makeElementAddClass('div', 'form-group');
 
-    let quizOverText = document.createElement('h3');
-    quizOverText.innerText = 'Quiz Over!';
-    quizOverText.classList.add('result-text');
-    let quizScoreText = document.createElement('h3');
-    quizScoreText.innerText = `Score: ${totalSeconds}`;
-    quizScoreText.classList.add('result-text');
-
-    let highScoreInputDiv = document.createElement('div');
-    highScoreInputDiv.classList.add('form-group');
     let initialsInput = document.createElement('input');
     initialsInput.setAttribute('name', 'initialsInput');
     initialsInput.classList.add('form-control', 'text-center');
@@ -223,7 +224,8 @@ function quizOver() {
             score: totalSeconds
         }
         highscores.push(highscore);
-        console.log(highscores);
+        //sorts scores from largest to smallest
+        highscores = highscores.sort((a, b) => b.score - a.score);
         localStorage.setItem('highscoreList', JSON.stringify(highscores));
         localStorage.getItem('highscoreList');
         window.location = 'highscores.html';
