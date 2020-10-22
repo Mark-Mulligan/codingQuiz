@@ -32,6 +32,12 @@ let quizQuestions = [{
 
 let highscores = [];
 
+if (localStorage.getItem('highscoreList')) {
+    console.log('highscores in memory');
+    highscores = JSON.parse(localStorage.getItem('highscoreList'));
+    console.log(highscores);
+}
+
 let startBtn = document.getElementById('start-btn');
 let titleContainer = document.querySelector('.title-container');
 let questionWrapper = document.createElement('div');
@@ -212,9 +218,14 @@ function quizOver() {
     submitScoreBtn.addEventListener('click', (e) => {
         event.preventDefault();
         let initials = document.getElementById("initialsInput").value;
-        highscores.push(`${initials} - ${totalSeconds}`);
+        let highscore = {
+            initial: initials,
+            score: totalSeconds
+        }
+        highscores.push(highscore);
         console.log(highscores);
-        console.log('button clicked');
+        localStorage.setItem('highscoreList', JSON.stringify(highscores));
+        localStorage.getItem('highscoreList');
         window.location = 'highscores.html';
     })
 }
