@@ -1,7 +1,7 @@
 /* GLOBAL VARIABLES */
 let answersCorrect = 0;
 let questionsAsked = 0;
-let questionOrder = [0, 1, 2, 3, 4];
+let questionOrder = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let totalSeconds = 50;
 let endQuiz = false;
 let quizQuestions = [{
@@ -28,6 +28,40 @@ let quizQuestions = [{
         question: 'What are the identifiers called that cannot be used as variables or function names?',
         answers: ['Reserved Words', 'Favorites', 'Constants', 'Concrete Terms'],
         correctAns: 'Reserved Words'
+    },
+    {
+        question: 'Inside which HTML element do we put the JavaScript?',
+        answers: ['<scripting>', '<javascript>', '<js>', '<script>'],
+        correctAns: '<script>'
+    },
+    {
+        question: `What is the correct JavaScript syntax to change the content of the HTML element below?
+        <p id="demo">This is a demonstration.</p>`,
+        answers: ['document.getElementByName("p").innerHTML = "Hello World"',
+            'document.getElementById("demo").innerHTML = "Hello World"',
+            'document.getElement("p").innerHTML = "Hello World"',
+            '#demo.innerHTML = "Hello World"'
+        ],
+        correctAns: 'document.getElementById("demo").innerHTML = "Hello World"'
+    },
+    {
+        question: 'How to write an IF statement in JavaScript?',
+        answers: ['if (i === 5)', 'if i === 5 then', 'if i = 5 then', 'if i = 5'],
+        correctAns: 'if (i === 5)'
+    },
+    {
+        question: 'How does a FOR loop start?',
+        answers: ['for i = 1 to 5', 'for (i = 0; i < 5; i++)', 'for (i = 0; i < 5)', 'for (i <= 5; i++)'],
+        correctAns: 'for (i = 0; i < 5; i++)'
+    },
+    {
+        question: 'What is the correct way to write a JavaScript array?',
+        answers: ['var colors = 1 = ("red"), 2 = ("green), 3 = ("blue")',
+            'var colors = (1:"red", 2:"green", 3:"blue"',
+            'var colors = "red", "green", "blue"',
+            'var colors = ["red", "green", "blue"]'
+        ],
+        correctAns: 'var colors = ["red", "green", "blue"]'
     }
 ];
 
@@ -155,7 +189,7 @@ function handleAnswerClick(e) {
     }
     questionsAsked++;
 
-    if (questionsAsked < 5) {
+    if (questionsAsked < 10) {
         showQuestion();
         showAnswers();
     } else {
