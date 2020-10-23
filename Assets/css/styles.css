@@ -2,24 +2,50 @@ body {
     padding-top: 50px;
     height: 100vh;
     text-align: center;
+    background-image: url('../images/lightGreenBackground.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
 }
 
 button {
     margin: 5px;
 }
 
+label {
+    font-size: 18px;
+}
+
 #high-scores-link {
     color: black;
     display: block;
+    font-size: 18px;
+}
+
+.btn-custom {
+    background-color: rgb(201, 249, 230);
+}
+
+.btn-custom:hover {
+    background-color: rgb(167, 245, 225);
+}
+
+.custom-container {
+    max-width: 600px;
+    background-color: white;
+    padding: 25px 50px;
+    border-radius: 15px;
+    text-align: center;
 }
 
 .question-container {
     min-height: 500px;
-    border: solid;
     padding: 25px 50px;
     text-align: left;
     max-width: 600px;
     position: relative;
+    background-color: white;
+    border-radius: 15px;
 }
 
 .timer-container {
@@ -31,6 +57,7 @@ button {
 
 .question {
     font-size: 28px;
+    font-weight: bold;
 }
 
 .answer {
@@ -38,31 +65,31 @@ button {
     font-size: 18px;
 }
 
-.answer:hover {
-    background-color: grey;
-    cursor: pointer;
-}
-
 .answer-result-text {
     font-size: 20px;
     text-align: center;
 }
 
-.quiz-result-container {
-    border: solid 1px;
-    padding: 10px;
-    text-align: center;
+.answer:hover {
+    background-color: rgb(201, 249, 230);
+    cursor: pointer;
 }
 
 #highscore-list {
-    max-width: 210px;
+    max-width: 226px;
     margin: auto;
     text-align: left;
     font-size: 20px;
-
+    margin-bottom: 15px;
 }
 
+.highscore {
+    padding: 5px 10px;
+}
 
+.highscore:nth-child(odd) {
+    background-color: rgb(201, 249, 230);
+}
 
 .hidden {
     display: none;

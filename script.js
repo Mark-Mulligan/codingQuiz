@@ -57,6 +57,7 @@ startBtn.addEventListener('click', () => {
     let timer = setInterval(function () {
         if (totalSeconds <= 0 || endQuiz) {
             clearInterval(timer);
+            if (totalSeconds <= 0) totalSeconds = 0;
             timerDipsplay.innerText = totalSeconds;
             quizOver();
         } else {
@@ -165,9 +166,9 @@ function quizOver() {
     hideElement('.answers-container');
     hideElement('hr');
 
-    let quizResultContainer = makeElementAddClass('form', 'quiz-result-container');
+    let quizResultContainer = makeElementAddClass('form', 'custom-container');
     quizResultContainer.setAttribute('method', 'POST');
-    let quizOverText = makeElementAddTextAndClass('h3', 'Quiz Over!', 'result-text');
+    let quizOverText = makeElementAddTextAndClass('h2', 'Quiz Over!', 'result-text');
     let quizScoreText = makeElementAddTextAndClass('h3', `Score: ${totalSeconds}`, 'result-text');
     let highScoreInputDiv = makeElementAddClass('div', 'form-group');
 
@@ -181,7 +182,7 @@ function quizOver() {
 
     let submitScoreBtn = document.createElement('button');
     submitScoreBtn.innerText = 'Submit Score';
-    submitScoreBtn.classList.add('btn', 'btn-secondary', 'mt-2');
+    submitScoreBtn.classList.add('btn', 'btn-custom', 'btn-lg', 'mt-4');
     submitScoreBtn.setAttribute('type', 'submit');
 
     highScoreInputDiv.appendChild(inputLabel);
@@ -197,16 +198,22 @@ function quizOver() {
     submitScoreBtn.addEventListener('click', (e) => {
         event.preventDefault();
         let initials = document.getElementById("initialsInput").value;
-        let highscore = {
-            initial: initials,
-            score: totalSeconds
+        let twoletters = /[a-z][a-z]/i
+
+        if (initials.length === 2 && twoletters.test(initials)) {
+            let highscore = {
+                initial: initials,
+                score: totalSeconds
+            }
+            highscores.push(highscore);
+            //sorts scores from largest to smallest
+            highscores = highscores.sort((a, b) => b.score - a.score);
+            localStorage.setItem('highscoreList', JSON.stringify(highscores));
+            localStorage.getItem('highscoreList');
+            window.location = 'highscores.html';
+        } else {
+            alert('Invalid Input. Please enter two letters');
         }
-        highscores.push(highscore);
-        //sorts scores from largest to smallest
-        highscores = highscores.sort((a, b) => b.score - a.score);
-        localStorage.setItem('highscoreList', JSON.stringify(highscores));
-        localStorage.getItem('highscoreList');
-        window.location = 'highscores.html';
     })
 }
 

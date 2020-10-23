@@ -9,12 +9,14 @@ goBackBtn.addEventListener('click', () => {
 clearScoresBtn.addEventListener('click', () => {
     localStorage.clear();
     highscoreListEl.innerHTML = 'No scores recorded';
+    highscoreListEl.classList.add('highscore');
 })
 
 let highscores = JSON.parse(localStorage.getItem('highscoreList'));
 
 if (!highscores) {
     highscoreListEl.innerHTML = 'No scores recorded';
+    highscoreListEl.classList.add('highscore');
 } else {
     for (let i = 0; i < highscores.length; i++) {
         let highscore = document.createElement('div');
