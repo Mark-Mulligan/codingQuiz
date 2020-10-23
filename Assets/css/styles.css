@@ -1,3 +1,4 @@
+/* MAIN ELEMENTS */
 body {
     padding-top: 50px;
     height: 100vh;
@@ -16,18 +17,19 @@ label {
     font-size: 18px;
 }
 
-#high-scores-link {
-    color: black;
-    display: block;
-    font-size: 18px;
-}
-
 .btn-custom {
     background-color: rgb(201, 249, 230);
 }
 
 .btn-custom:hover {
     background-color: rgb(167, 245, 225);
+}
+
+/* STARTING PAGE */
+#high-scores-link {
+    color: black;
+    display: block;
+    font-size: 18px;
 }
 
 .custom-container {
@@ -38,6 +40,14 @@ label {
     text-align: center;
 }
 
+/* QUIZ QUESTIONS */
+.timer-container {
+    position: fixed;
+    right: 10px;
+    top: 5px;
+    font-size: 30px;
+}
+
 .question-container {
     min-height: 500px;
     padding: 25px 50px;
@@ -46,13 +56,6 @@ label {
     position: relative;
     background-color: white;
     border-radius: 15px;
-}
-
-.timer-container {
-    position: fixed;
-    right: 10px;
-    top: 5px;
-    font-size: 30px;
 }
 
 .question {
@@ -75,6 +78,7 @@ label {
     cursor: pointer;
 }
 
+/* HIGHSCORE PAGE */
 #highscore-list {
     max-width: 226px;
     margin: auto;
@@ -91,6 +95,7 @@ label {
     background-color: rgb(201, 249, 230);
 }
 
+/* GENERAL CLASSES */
 .hidden {
     display: none;
 }

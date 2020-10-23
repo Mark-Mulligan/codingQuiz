@@ -1,3 +1,4 @@
+/* GLOBAL VARIABLES */
 let answersCorrect = 0;
 let questionsAsked = 0;
 let questionOrder = [0, 1, 2, 3, 4];
@@ -36,6 +37,7 @@ if (localStorage.getItem('highscoreList')) {
     highscores = JSON.parse(localStorage.getItem('highscoreList'));
 }
 
+/* ELEMENT SELECTORS */
 let startBtn = document.getElementById('start-btn');
 let titleContainer = document.querySelector('.title-container');
 let questionWrapper = document.createElement('div');
@@ -79,9 +81,9 @@ function randomizeQuestions(array) {
 }
 
 function createTimerElement() {
-    let timerContainer = makeElementAddClass('div', 'timer-container');
-    let timerDisplay = makeElementAddTextAndClass('p', 'Time: ', 'timer-display');
-    let timerInner = makeElementAddTextAndClass('span', '50', 'timer-inner');
+    let timerContainer = makeElementAddClasses('div', ['timer-container']);
+    let timerDisplay = makeElementAddTextAndClass('p', 'Time: ', ['timer-display']);
+    let timerInner = makeElementAddTextAndClass('span', '50', ['timer-inner']);
     timerInner.setAttribute('id', 'timer-display');
 
     timerDisplay.appendChild(timerInner);
@@ -90,14 +92,14 @@ function createTimerElement() {
 }
 
 function generateQuestion() {
-    let question = makeElementAddClass('p', 'question');
+    let question = makeElementAddClasses('p', ['question']);
     questionContainer.appendChild(question);
     let divider = document.createElement('hr');
     questionContainer.appendChild(divider);
-    let answers = makeElementAddClass('div', 'answers-container');
+    let answers = makeElementAddClasses('div', ['answers-container']);
 
     for (let i = 0; i < 4; i++) {
-        let answer = makeElementAddClass('div', 'answer');
+        let answer = makeElementAddClasses('div', ['answer']);
         answer.addEventListener('click', handleAnswerClick);
         answers.appendChild(answer);
     }
@@ -107,11 +109,11 @@ function generateQuestion() {
 }
 
 function generateAnswerResult() {
-    let answerResultContainer = makeElementAddClass('div', 'hidden');
+    let answerResultContainer = makeElementAddClasses('div', ['hidden']);
     answerResultContainer.setAttribute('id', 'answer-result-container');
     let seperator = document.createElement('hr');
     answerResultContainer.appendChild(seperator);
-    let answerResult = makeElementAddTextAndClass('p', 'Correct', 'answer-result-text');
+    let answerResult = makeElementAddTextAndClass('p', 'Correct', ['answer-result-text']);
     answerResultContainer.appendChild(answerResult);
     questionContainer.appendChild(answerResultContainer);
 }
@@ -161,28 +163,24 @@ function handleAnswerClick(e) {
     }
 }
 
+/* handles generating the elements when the quiz is over and logging score data */
 function quizOver() {
     hideElement('.question');
     hideElement('.answers-container');
     hideElement('hr');
 
-    let quizResultContainer = makeElementAddClass('form', 'custom-container');
+    let quizResultContainer = makeElementAddClasses('form', ['custom-container']);
     quizResultContainer.setAttribute('method', 'POST');
-    let quizOverText = makeElementAddTextAndClass('h2', 'Quiz Over!', 'result-text');
-    let quizScoreText = makeElementAddTextAndClass('h3', `Score: ${totalSeconds}`, 'result-text');
-    let highScoreInputDiv = makeElementAddClass('div', 'form-group');
+    let quizOverText = makeElementAddTextAndClass('h2', 'Quiz Over!', ['result-text']);
+    let quizScoreText = makeElementAddTextAndClass('h3', `Score: ${totalSeconds}`, ['result-text']);
+    let highScoreInputDiv = makeElementAddClasses('div', ['form-group']);
 
-    let initialsInput = document.createElement('input');
+    let initialsInput = makeElementAddClasses('input', ['form-control', 'text-center']);
     initialsInput.setAttribute('name', 'initialsInput');
-    initialsInput.classList.add('form-control', 'text-center');
     initialsInput.setAttribute('id', 'initialsInput');
-    let inputLabel = document.createElement('label');
-    initialsInput.setAttribute('for', 'initialsInput');
-    inputLabel.innerText = 'Enter Initials';
-
-    let submitScoreBtn = document.createElement('button');
-    submitScoreBtn.innerText = 'Submit Score';
-    submitScoreBtn.classList.add('btn', 'btn-custom', 'btn-lg', 'mt-4');
+    let inputLabel = makeElementAddTextAndClass('label', 'Enter Initials', ['input-lable']);
+    inputLabel.setAttribute('for', 'initialsInput');
+    let submitScoreBtn = makeElementAddTextAndClass('button', 'Submit Score', ['btn', 'btn-custom', 'btn-lg', 'mt-4']);
     submitScoreBtn.setAttribute('type', 'submit');
 
     highScoreInputDiv.appendChild(inputLabel);
@@ -217,14 +215,15 @@ function quizOver() {
     })
 }
 
-function makeElementAddClass(type, classes) {
+/* UTILITY FUNCTIONS */
+function makeElementAddClasses(type, classesArr) {
     let newElement = document.createElement(type);
-    newElement.classList.add(classes);
+    classesArr.forEach(className => newElement.classList.add(className));
     return newElement;
 }
 
-function makeElementAddTextAndClass(type, text, classes) {
-    let newElement = makeElementAddClass(type, classes);
+function makeElementAddTextAndClass(type, text, classesArr) {
+    let newElement = makeElementAddClasses(type, classesArr);
     newElement.innerText = text;
     return newElement;
 }

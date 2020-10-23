@@ -1,3 +1,4 @@
+/* ELEMENT SELECTORS */
 let goBackBtn = document.getElementById('go-back-btn');
 let clearScoresBtn = document.getElementById('clear-scores-btn');
 let highscoreListEl = document.getElementById('highscore-list');
