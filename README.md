@@ -6,5 +6,7 @@ This program is a coding quiz.  However, the format of this quiz is different fr
 
 Upon completion, the quiz is scored based on the amount of time remaining.  The more time remaing, the more points the user gets on the quiz.  At the end of the quiz, the user is propmted to recored their score.  These scores are stored in local storage and can be view on the highscore page.  These scores can also be cleared from local storage if desired via a button included on the highscore page.  
 
-The program can be viewed live at using this link.  
+The program can be viewed live at using the link below.  
+https://markmulligan97.github.io/codingQuiz/
 
+![picture of the codingQuiz](./Assets/images/codingQuizScreenshot.png "Coding Quiz")
